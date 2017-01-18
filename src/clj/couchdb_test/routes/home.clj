@@ -5,20 +5,21 @@
             [clojure.java.io :as io]
             [com.ashafa.clutch :as clutch]))
 
-(defn wiki-pages []
-  (clutch/with-db "wiki" 
-    (clutch/get-view "pages" "by_title")))
+(defn wiki-page [id]
+  (:content (clutch/with-db "wiki" 
+    (clutch/get-document id))))
 
 (defn home-page []
   (layout/render
-    "home.html" {:docs (-> "docs/docs.md" io/resource slurp)
-                 :pages (wiki-pages)
-                 }))
+    "page.html" {:doc (wiki-page "home-page")} ))
 
-(defn about-page []
-  (layout/render "about.html"))
+(defn a-page [id]
+  (layout/render
+   "page.html" {:doc (wiki-page id)}))
 
 (defroutes home-routes
   (GET "/" [] (home-page))
-  (GET "/about" [] (about-page)))
+  (GET "/about" [] (about-page))
+  (GET "/page/:id" [id] (a-page id))
+)
 
