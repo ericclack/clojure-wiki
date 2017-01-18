@@ -1,6 +1,6 @@
 (ns couchdb-test.routes.home
   (:require [couchdb-test.layout :as layout]
-            [compojure.core :refer [defroutes GET]]
+            [compojure.core :refer [defroutes GET POST]]
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
             [com.ashafa.clutch :as clutch]))
@@ -11,7 +11,7 @@
 (defn home-page []
   (a-page "home-page"))
 
-(defn create-page [id]
+(defn create-page-form [id]
    (layout/render
        "create.html" {:id id}))
 
@@ -21,10 +21,15 @@
     (if (true? page-exists) 
       (layout/render
        "page.html" {:doc (:content page)})
-      (create-page id))))
+      (create-page-form id))))
+
+(defn create-page [id]
+  "Page TO DO"
+  )
 
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/:id" [id] (a-page id))
+  (POST "/_create/:id" [id] (create-page id))
 )
 
