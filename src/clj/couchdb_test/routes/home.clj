@@ -6,20 +6,25 @@
             [com.ashafa.clutch :as clutch]))
 
 (defn wiki-page [id]
-  (:content (clutch/with-db "wiki" 
-    (clutch/get-document id))))
+  (clutch/with-db "wiki" (clutch/get-document id)))
 
 (defn home-page []
-  (layout/render
-    "page.html" {:doc (wiki-page "home-page")} ))
+  (a-page "home-page"))
+
+(defn create-page [id]
+   (layout/render
+       "create.html" {:id id}))
 
 (defn a-page [id]
-  (layout/render
-   "page.html" {:doc (wiki-page id)}))
+  (let [page (clutch/with-db "wiki" (clutch/get-document id)) 
+        page-exists (not (nil? page))]
+    (if (true? page-exists) 
+      (layout/render
+       "page.html" {:doc (:content page)})
+      (create-page id))))
 
 (defroutes home-routes
   (GET "/" [] (home-page))
-  (GET "/about" [] (about-page))
-  (GET "/page/:id" [id] (a-page id))
+  (GET "/:id" [id] (a-page id))
 )
 
