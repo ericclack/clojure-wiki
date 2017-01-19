@@ -6,6 +6,7 @@
         <p>This page doesn't exist, create it now...</p>
 
         <form class="createPage" action="_create/{{id}}" method="POST">
+            {% csrf-field %}
             ID: {{id}}<br/>
             <textarea name="content">Content for page {{id}} here.</textarea>
             <br/>

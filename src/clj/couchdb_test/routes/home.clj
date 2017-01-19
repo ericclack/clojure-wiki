@@ -8,9 +8,6 @@
 (defn wiki-page [id]
   (clutch/with-db "wiki" (clutch/get-document id)))
 
-(defn home-page []
-  (a-page "home-page"))
-
 (defn create-page-form [id]
    (layout/render
        "create.html" {:id id}))
@@ -22,6 +19,10 @@
       (layout/render
        "page.html" {:doc (:content page)})
       (create-page-form id))))
+
+(defn home-page []
+  (a-page "home-page"))
+
 
 (defn create-page [id]
   "Page TO DO"
