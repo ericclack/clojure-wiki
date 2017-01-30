@@ -7,7 +7,8 @@
 
 (defn doc-prep-fixture [f]
   ;; Set up code
-  (db/remove-wiki-page test-wiki-page)
+  (when (some? (db/wiki-page test-wiki-page))
+    (db/remove-wiki-page test-wiki-page))
   ;; The test
   (f)
   ;; Tear down code
