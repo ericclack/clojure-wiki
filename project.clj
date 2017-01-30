@@ -36,7 +36,8 @@
   :main couchdb-test.core
 
   :plugins [[lein-cprop "1.0.1"]
-            [lein-immutant "2.1.0"]]
+            [lein-immutant "2.1.0"]
+            [cider/cider-nrepl "0.14.0"]]
 
   :profiles
   {:uberjar {:omit-source true

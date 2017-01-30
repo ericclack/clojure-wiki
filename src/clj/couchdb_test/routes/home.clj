@@ -13,7 +13,7 @@
        "create.html" {:id id}))
 
 (defn a-page [id]
-  (let [page (clutch/with-db "wiki" (clutch/get-document id)) 
+  (let [page (wiki-page id) 
         page-exists (not (nil? page))]
     (if (true? page-exists) 
       (layout/render
@@ -24,13 +24,14 @@
   (a-page "home-page"))
 
 
-(defn create-page [id]
-  "Page TO DO"
-  )
+(defn create-page [id request]
+  (println request)
+  "To Do!"
+)
 
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/:id" [id] (a-page id))
-  (POST "/_create/:id" [id] (create-page id))
+  (POST "/_create/:id" [id request] (create-page id request))
 )
 

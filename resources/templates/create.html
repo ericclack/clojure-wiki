@@ -8,7 +8,7 @@
         <form class="createPage" action="_create/{{id}}" method="POST">
             {% csrf-field %}
             ID: {{id}}<br/>
-            <textarea name="content">Content for page {{id}} here.</textarea>
+            <textarea name="content">Content for page '{{id}}' here.</textarea>
             <br/>
             <input type="submit" name="save" value="Save"/>
         </form>
