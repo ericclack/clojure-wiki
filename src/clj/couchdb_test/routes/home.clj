@@ -3,17 +3,15 @@
             [compojure.core :refer [defroutes GET POST]]
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
-            [com.ashafa.clutch :as clutch]))
-
-(defn wiki-page [id]
-  (clutch/with-db "wiki" (clutch/get-document id)))
+            [couchdb-test.models.db :as db]
+            [clojure.string :as s]))
 
 (defn create-page-form [id]
    (layout/render
        "create.html" {:id id}))
 
 (defn a-page [id]
-  (let [page (wiki-page id) 
+  (let [page (db/wiki-page id) 
         page-exists (not (nil? page))]
     (if (true? page-exists) 
       (layout/render
@@ -25,13 +23,12 @@
 
 
 (defn create-page [id request]
-  (println request)
-  "To Do!"
+  (s/join (list "To Do for '" id "' page"))
 )
 
 (defroutes home-routes
   (GET "/" [] (home-page))
-  (GET "/:id" [id] (a-page id))
   (POST "/_create/:id" [id request] (create-page id request))
+  (GET "/:id" [id] (a-page id))
 )
 

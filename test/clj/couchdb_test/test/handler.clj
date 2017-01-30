@@ -11,5 +11,14 @@
 
   (testing "no existing page, show creation form"
     (let [response ((app) (request :get "/new-page"))]
-       (is (= 200 (:status response)))
-       (is (s/includes? (:body response) "Create")))))
+      (is (= 200 (:status response)))
+      (is (s/includes? (:body response) "Create"))))
+
+  (testing "test we can println"
+    ;; But where does it go?
+    (println "hello"))
+  
+  (testing "create a new page"
+    (let [response ((app) (request :post "/_create/a-new-page" {}))]
+      (is (= 200 (:status response))))))
+
