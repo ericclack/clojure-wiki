@@ -1,0 +1,14 @@
+(ns couchdb-test.test.db
+  (:require [clojure.test :refer :all]
+            [clojure.string :as s]
+            [couchdb-test.models.db :as db]))
+
+(deftest test-db
+  (testing "get a wiki page"
+    (let [result (db/wiki-page "welcome")]
+      (is (s/includes? (:content result) "Congratulations"))))
+
+  (testing "create a wiki page"
+    (let [content "A very short page"
+          result (db/create-wiki-page "test-page" content)]
+      (is (= result true)))))

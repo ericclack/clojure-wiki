@@ -23,8 +23,8 @@
 
 
 (defn create-page [id request]
-  (s/join (list "To Do for '" id "' page"))
-)
+  (s/join (list "To Do for '" id "' page")))
+
 
 (defroutes home-routes
   (GET "/" [] (home-page))

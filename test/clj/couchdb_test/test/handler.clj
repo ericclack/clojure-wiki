@@ -18,7 +18,7 @@
     ;; But where does it go?
     (println "hello"))
   
-  (testing "create a new page"
+  (testing "create a new page - post request not authorised"
     (let [response ((app) (request :post "/_create/a-new-page" {}))]
-      (is (= 200 (:status response))))))
+      (is (= 403 (:status response))))))
 
