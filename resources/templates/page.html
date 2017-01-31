@@ -2,13 +2,13 @@
 {% block content %}
 <div class="row">
     <div class="col-sm-12">
-        {{doc|markdown}}
+      {{ doc.content|markdown }}
     </div>    
 </div>
 
 <div class="row">
     <div class="col-sm-12">
-        <a href="_edit/">Edit this page</a>
+        <a href="_edit/{{ doc._id }}">Edit this page</a>
     </div>    
 </div>
 {% endblock %}

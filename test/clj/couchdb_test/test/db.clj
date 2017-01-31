@@ -22,11 +22,18 @@
 
 (use-fixtures :each doc-prep-fixture)
 
-(deftest test-db
+(deftest test-getting-and-adding
   (testing "get a wiki page"
     (let [result (db/wiki-page "welcome")]
       (is (s/includes? (:content result) "Congratulations"))))
 
+  (testing "create a wiki page"
+    (let [content "A very short page"
+          result (db/create-wiki-page test-page-id content)]
+      (is (= (:_id result) test-page-id)))))
+
+
+(deftest test-removing-editing
   (testing "add and remove a wiki page"
     (let [page-id "test-wiki-page-999"
           test-content "One two three four"
@@ -36,7 +43,11 @@
       (is (= (:ok deleted-page) true))
       (is (= (:id deleted-page) page-id))))
   
-  (testing "create a wiki page"
-    (let [content "A very short page"
-          result (db/create-wiki-page test-page-id content)]
-      (is (= (:_id result) test-page-id)))))
+  (testing "edit a wiki page"
+    (let [content1 "A very short page"
+          content2 "A slightly longer page"
+          result (db/create-wiki-page test-page-id content1)
+          update (db/update-wiki-page test-page-id (:_rev result) content2)]
+      (is (= (:_id result) test-page-id))
+      (is (s/includes? (:content update) "slightly")))))
+  

@@ -1,13 +1,17 @@
 (ns couchdb-test.models.db
-  (:require [com.ashafa.clutch :as clutch]))
+  (:require [com.ashafa.clutch :as couch]))
 
 (defn wiki-page [id]
-  (clutch/with-db "wiki" (clutch/get-document id)))
+  (couch/with-db "wiki" (couch/get-document id)))
 
 (defn create-wiki-page [id content]
-  (clutch/with-db "wiki"
-    (clutch/put-document {:_id id :content content})))
+  (couch/with-db "wiki"
+    (couch/put-document {:_id id :content content})))
 
 (defn remove-wiki-page [id rev]
-  (clutch/with-db "wiki"
-    (clutch/delete-document {:_id id :_rev rev})))
+  (couch/with-db "wiki"
+    (couch/delete-document {:_id id :_rev rev})))
+
+(defn update-wiki-page [id rev content]
+  (couch/with-db "wiki"
+    (couch/put-document {:_id id :_rev rev :content content})))  

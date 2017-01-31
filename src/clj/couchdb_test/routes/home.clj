@@ -15,7 +15,7 @@
         page-exists (not (nil? page))]
     (if (true? page-exists) 
       (layout/render
-       "page.html" {:doc (:content page)})
+       "page.html" {:doc page })
       (create-page-form id))))
 
 (defn home-page []
@@ -23,12 +23,23 @@
 
 (defn create-page [id content]
   (db/create-wiki-page id content)
-  (redirect "/"))
+  (redirect (str "/" id)))
+
+(defn edit-page [id]
+  (let [page (db/wiki-page id)]
+    (layout/render
+       "edit.html" {:doc page})))  
+
+(defn update-page [id rev content]
+  (db/update-wiki-page id rev content)
+  (redirect (str "/" id)))
 
 
 (defroutes home-routes
   (GET "/" [] (home-page))
   (POST "/_create/:id" [id content] (create-page id content))
+  (GET "/_edit/:id" [id] (edit-page id))
+  (POST "/_edit/:id/:rev" [id rev content] (update-page id rev content))
   (GET "/:id" [id] (a-page id))
 )
 

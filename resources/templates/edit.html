@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Edit page</h1>
+
+        <form class="editPage" action="/_edit/{{doc._id}}/{{doc._rev}}" method="POST">
+            {% csrf-field %}
+            ID: {{doc._id}}<br/>
+            <textarea name="content">{{ doc.content }}</textarea>
+            <br/>
+            <input type="submit" name="save" value="Save"/>
+        </form>
+    </div>
+</div>
+{% endblock %}

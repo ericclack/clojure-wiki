@@ -32,7 +32,7 @@ body {
   }
 }
 
-form.createPage textarea {
-    width: 90%;
-    height: 90%;
+form.editPage textarea {
+    width: 93vw;
+    height: 70vh;
 }
