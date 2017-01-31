@@ -8,6 +8,6 @@
   (clutch/with-db "wiki"
     (clutch/put-document {:_id id :content content})))
 
-(defn remove-wiki-page [id]
+(defn remove-wiki-page [id rev]
   (clutch/with-db "wiki"
-    (clutch/delete-document id)))
+    (clutch/delete-document {:_id id :_rev rev})))
