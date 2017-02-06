@@ -1,7 +1,7 @@
 (ns couchdb-test.layout
   (:require [selmer.parser :as parser]
             [selmer.filters :as filters]
-            [markdown.core :refer [md-to-html-string]]
+            [couchdb-test.filters :refer [my-markdown]]
             [clojure.string :as s]
             [ring.util.http-response :refer [content-type ok]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
@@ -10,16 +10,7 @@
 (declare ^:dynamic *app-context*)
 (parser/set-resource-path!  (clojure.java.io/resource "templates"))
 (parser/add-tag! :csrf-field (fn [_ _] (anti-forgery-field)))
-
-(defn wiki-links
-  [text state]
-  [(s/replace text #"\[\[([\w -]+)\]\]" "<a href=\"$1\">$1</a>") state])
-
-(defn md-to-html-string2
-  [content]
-  (md-to-html-string content :custom-transformers [wiki-links]))
-
-(filters/add-filter! :markdown (fn [content] [:safe (md-to-html-string2 content)]))
+(filters/add-filter! :markdown (fn [content] [:safe (my-markdown content)]))
 
 (defn render
   "renders the HTML template located relative to resources/templates"
