@@ -1,7 +1,7 @@
-(ns couchdb-test.test.db
+(ns clojure-wiki.test.db
   (:require [clojure.test :refer :all]
             [clojure.string :as s]
-            [couchdb-test.models.db :as db]))
+            [clojure-wiki.models.db :as db]))
 
 ;; To Do:
 ;; - Add new test database instance so we don't accidentally

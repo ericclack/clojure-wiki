@@ -1,8 +1,8 @@
-(ns couchdb-test.core
-  (:require [couchdb-test.handler :as handler]
+(ns clojure-wiki.core
+  (:require [clojure-wiki.handler :as handler]
             [luminus.repl-server :as repl]
             [luminus.http-server :as http]
-            [couchdb-test.config :refer [env]]
+            [clojure-wiki.config :refer [env]]
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]
             [mount.core :as mount])

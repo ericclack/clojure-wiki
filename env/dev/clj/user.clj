@@ -1,14 +1,14 @@
 (ns user
   (:require [mount.core :as mount]
-            couchdb-test.core))
+            clojure-wiki.core))
 
 (defn start []
-  (mount/start-without #'couchdb-test.core/http-server
-                       #'couchdb-test.core/repl-server))
+  (mount/start-without #'clojure-wiki.core/http-server
+                       #'clojure-wiki.core/repl-server))
 
 (defn stop []
-  (mount/stop-except #'couchdb-test.core/http-server
-                     #'couchdb-test.core/repl-server))
+  (mount/stop-except #'clojure-wiki.core/http-server
+                     #'clojure-wiki.core/repl-server))
 
 (defn restart []
   (stop)

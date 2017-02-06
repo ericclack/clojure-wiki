@@ -1,4 +1,4 @@
-(defproject couchdb-test "0.1.0-SNAPSHOT"
+(defproject clojure-wiki "0.1.0-SNAPSHOT"
 
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
@@ -33,7 +33,7 @@
   :source-paths ["src/clj"]
   :resource-paths ["resources"]
   :target-path "target/%s/"
-  :main couchdb-test.core
+  :main clojure-wiki.core
 
   :plugins [[lein-cprop "1.0.1"]
             [lein-immutant "2.1.0"]
@@ -42,7 +42,7 @@
   :profiles
   {:uberjar {:omit-source true
              :aot :all
-             :uberjar-name "couchdb-test.jar"
+             :uberjar-name "clojure-wiki.jar"
              :source-paths ["env/prod/clj"]
              :resource-paths ["env/prod/resources"]}
 

@@ -4,7 +4,7 @@ This page will help guide you through the first steps of building your site.
 
 #### Why are you seeing this page?
 
-The `home-routes` handler in the `couchdb-test.routes.home` namespace
+The `home-routes` handler in the `clojure-wiki.routes.home` namespace
 defines the route that invokes the `home-page` function whenever an HTTP
 request is made to the `/` URI using the `GET` method.
 
@@ -14,7 +14,7 @@ request is made to the `/` URI using the `GET` method.
   (GET "/about" [] (about-page)))
 ```
 
-The `home-page` function will in turn call the `couchdb-test.layout/render` function
+The `home-page` function will in turn call the `clojure-wiki.layout/render` function
 to render the HTML content:
 
 ```
@@ -45,7 +45,7 @@ The HTML templates are written using [Selmer](https://github.com/yogthos/Selmer)
 
 #### Organizing the routes
 
-The routes are aggregated and wrapped with middleware in the `couchdb-test.handler` namespace:
+The routes are aggregated and wrapped with middleware in the `clojure-wiki.handler` namespace:
 
 ```
 (def app-routes
@@ -69,12 +69,12 @@ The second takes care of serializing and deserializing various encoding formats,
 
 #### Managing your middleware
 
-Request middleware functions are located under the `couchdb-test.middleware` namespace.
+Request middleware functions are located under the `clojure-wiki.middleware` namespace.
 
 This namespace is reserved for any custom middleware for the application. Some default middleware is
 already defined here. The middleware is assembled in the `wrap-base` function.
 
-Middleware used for development is placed in the `couchdb-test.dev-middleware` namespace found in
+Middleware used for development is placed in the `clojure-wiki.dev-middleware` namespace found in
 the `env/dev/clj/` source path.
 
 <a class="btn btn-primary" href="http://www.luminusweb.net/docs/middleware.md">learn more about middleware »</a>

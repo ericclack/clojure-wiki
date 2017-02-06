@@ -1,11 +1,11 @@
-(ns couchdb-test.handler
+(ns clojure-wiki.handler
   (:require [compojure.core :refer [routes wrap-routes]]
-            [couchdb-test.layout :refer [error-page]]
-            [couchdb-test.routes.home :refer [home-routes]]
+            [clojure-wiki.layout :refer [error-page]]
+            [clojure-wiki.routes.home :refer [home-routes]]
             [compojure.route :as route]
-            [couchdb-test.env :refer [defaults]]
+            [clojure-wiki.env :refer [defaults]]
             [mount.core :as mount]
-            [couchdb-test.middleware :as middleware]))
+            [clojure-wiki.middleware :as middleware]))
 
 (mount/defstate init-app
                 :start ((or (:init defaults) identity))

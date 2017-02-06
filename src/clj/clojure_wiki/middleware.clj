@@ -1,11 +1,11 @@
-(ns couchdb-test.middleware
-  (:require [couchdb-test.env :refer [defaults]]
+(ns clojure-wiki.middleware
+  (:require [clojure-wiki.env :refer [defaults]]
             [clojure.tools.logging :as log]
-            [couchdb-test.layout :refer [*app-context* error-page]]
+            [clojure-wiki.layout :refer [*app-context* error-page]]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.format :refer [wrap-restful-format]]
-            [couchdb-test.config :refer [env]]
+            [clojure-wiki.config :refer [env]]
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]])

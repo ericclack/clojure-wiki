@@ -9,7 +9,7 @@ base: cloudius/osv-openjdk8
 #
 # The command line passed to OSv to start up the application.
 #
-cmdline: /java.so -jar /couchdb-test/app.jar
+cmdline: /java.so -jar /clojure-wiki/app.jar
 
 #
 # The command to use to build the application.
@@ -24,5 +24,5 @@ cmdline: /java.so -jar /couchdb-test/app.jar
 # List of files that are included in the generated image.
 #
 files:
-  /couchdb-test/app.jar: ./target/uberjar/couchdb-test.jar
+  /clojure-wiki/app.jar: ./target/uberjar/clojure-wiki.jar
 

@@ -1,7 +1,7 @@
-(ns couchdb-test.test.markdown
+(ns clojure-wiki.test.markdown
   (:require [clojure.test :refer :all]
             [clojure.string :as s]
-            [couchdb-test.filters :refer [my-markdown]]))
+            [clojure-wiki.filters :refer [my-markdown]]))
 
 ;; To Do:
 ;; 

@@ -1,4 +1,4 @@
-# couchdb-test
+# clojure-wiki
 
 generated using Luminus version "2.9.11.24"
 

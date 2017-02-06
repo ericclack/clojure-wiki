@@ -1,4 +1,4 @@
-(ns couchdb-test.config
+(ns clojure-wiki.config
   (:require [cprop.core :refer [load-config]]
             [cprop.source :as source]
             [mount.core :refer [args defstate]]))

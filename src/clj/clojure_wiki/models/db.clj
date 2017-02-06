@@ -1,4 +1,4 @@
-(ns couchdb-test.models.db
+(ns clojure-wiki.models.db
   (:require [com.ashafa.clutch :as couch]))
 
 (defn wiki-page [id]

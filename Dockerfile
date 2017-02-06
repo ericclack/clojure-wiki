@@ -1,8 +1,8 @@
 FROM java:8-alpine
 MAINTAINER Your Name <you@example.com>
 
-ADD target/uberjar/couchdb-test.jar /couchdb-test/app.jar
+ADD target/uberjar/clojure-wiki.jar /clojure-wiki/app.jar
 
 EXPOSE 3000
 
-CMD ["java", "-jar", "/couchdb-test/app.jar"]
+CMD ["java", "-jar", "/clojure-wiki/app.jar"]

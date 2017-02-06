@@ -1,7 +1,7 @@
-(ns couchdb-test.layout
+(ns clojure-wiki.layout
   (:require [selmer.parser :as parser]
             [selmer.filters :as filters]
-            [couchdb-test.filters :refer [my-markdown]]
+            [clojure-wiki.filters :refer [my-markdown]]
             [clojure.string :as s]
             [ring.util.http-response :refer [content-type ok]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]

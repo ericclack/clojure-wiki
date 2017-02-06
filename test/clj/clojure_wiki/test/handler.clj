@@ -1,8 +1,8 @@
-(ns couchdb-test.test.handler
+(ns clojure-wiki.test.handler
   (:require [clojure.test :refer :all]
             [clojure.string :as s]
             [ring.mock.request :refer :all]
-            [couchdb-test.handler :refer :all]))
+            [clojure-wiki.handler :refer :all]))
 
 (deftest test-app
   (testing "main route"
