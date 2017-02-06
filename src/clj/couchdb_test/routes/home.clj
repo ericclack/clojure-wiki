@@ -8,7 +8,7 @@
 
 (defn create-page-form [id]
    (layout/render
-       "create.html" {:id id}))
+       "edit.html" {:id id}))
 
 (defn a-page [id]
   (let [page (db/wiki-page id) 

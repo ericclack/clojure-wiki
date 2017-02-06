@@ -1,16 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">
-    <div class="col-sm-12">
-        <h1>Edit page</h1>
-
-        <form class="editPage" action="/_edit/{{doc._id}}/{{doc._rev}}" method="POST">
-            {% csrf-field %}
-            ID: {{doc._id}}<br/>
-            <textarea name="content">{{ doc.content }}</textarea>
-            <br/>
-            <input type="submit" name="save" value="Save"/>
-        </form>
+  <div class="col-sm-12">
+    {% if doc %}
+    <h1>Edit page '{{doc._id}}'</h1>
+    {% else %}
+    <h1>Create page '{{id}}'</h1>
+    {% endif %}
+                     
+    <form class="editPage"
+          {% if doc %}
+          action="/_edit/{{doc._id}}/{{doc._rev}}"
+          {% else %}
+          action="/_create/{{id}}" 
+          {% endif %}
+          method="POST">
+      {% csrf-field %}
+      ID: {{doc._id}}<br/>
+      <textarea name="content">{{ doc.content }}</textarea>
+      <br/>
+      <input type="submit" name="save" value="Save"/>
+    </form>
     </div>
 </div>
 {% endblock %}
