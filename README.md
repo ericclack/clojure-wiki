@@ -8,6 +8,10 @@ You will need [Leiningen][1] 2.0 or above installed.
 
 [1]: https://github.com/technomancy/leiningen
 
+## Set up
+
+Create two databases from the Futon admin system, one for dev, one for testing, and enter their URLs in `profiles.clj`
+
 ## Running
 
 To start a web server for the application, run:

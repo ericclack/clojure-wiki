@@ -11,18 +11,21 @@
        "edit.html" {:id id}))
 
 (defn a-page [id]
+  ;; Render a page, or show the create page form
   (let [page (db/wiki-page id) 
-        page-exists (not (nil? page))]
+        page-exists (not (nil? page))
+        nav-bar (db/get-nav-bar)]
     (if (true? page-exists) 
       (layout/render
-       "page.html" {:doc page })
+       "page.html" {:doc page :nav nav-bar})
       (create-page-form id))))
 
 (defn home-page []
   (a-page "home-page"))
 
+
 (defn create-page [id content]
-  (db/create-wiki-page id content)
+  (db/create-wiki-page! id content)
   (redirect (str "/" id)))
 
 (defn edit-page [id]
@@ -31,7 +34,7 @@
        "edit.html" {:doc page})))  
 
 (defn update-page [id rev content]
-  (db/update-wiki-page id rev content)
+  (db/update-wiki-page! id rev content)
   (redirect (str "/" id)))
 
 

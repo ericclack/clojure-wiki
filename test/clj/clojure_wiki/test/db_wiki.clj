@@ -1,26 +1,31 @@
-(ns clojure-wiki.test.db
+(ns clojure-wiki.test.db-wiki
   (:require [clojure.test :refer :all]
             [clojure.string :as s]
             [clojure-wiki.models.db :as db]))
 
-;; To Do:
-;; - Add new test database instance so we don't accidentally
-;;   clobber live data!
+;; Run this from lein test so that it uses the test environment
+;; and database-url.
 
-(def test-page-id "test-wiki-page-123")
+;; To Do:
+;; - 
+
+(defn delete-if-exists
+  [id]
+  (let [page (db/wiki-page id)]
+    (when (some? page)
+      (db/remove-wiki-page! id (:_rev page)))))
 
 (defn doc-prep-fixture [f]
   ;; Set up code
-  (let [test-page (db/wiki-page test-page-id)]
-    (when (some? test-page)
-      (println "page exists, deleting it")
-      (db/remove-wiki-page test-page-id (:_rev test-page))))
+  (delete-if-exists "-test-123")
   ;; The test
   (f)
   ;; Tear down code
 )
 
 (use-fixtures :each doc-prep-fixture)
+
+;; ----------------------------------------------------
 
 (deftest test-getting-and-adding
   (testing "get a wiki page"
@@ -29,16 +34,16 @@
 
   (testing "create a wiki page"
     (let [content "A very short page"
-          result (db/create-wiki-page test-page-id content)]
-      (is (= (:_id result) test-page-id)))))
+          result (db/create-wiki-page! "-test-123" content)]
+      (is (= (:_id result) "-test-123")))))
 
 
 (deftest test-removing-editing
   (testing "add and remove a wiki page"
-    (let [page-id "test-wiki-page-999"
+    (let [page-id "-test-wiki-page-999"
           test-content "One two three four"
-          created-page (db/create-wiki-page page-id test-content)
-          deleted-page (db/remove-wiki-page page-id (:_rev created-page))]
+          created-page (db/create-wiki-page! page-id test-content)
+          deleted-page (db/remove-wiki-page! page-id (:_rev created-page))]
       (is (s/includes? (:content created-page) "two three"))
       (is (= (:ok deleted-page) true))
       (is (= (:id deleted-page) page-id))))
@@ -46,10 +51,8 @@
   (testing "edit a wiki page"
     (let [content1 "A very short page"
           content2 "A slightly longer page"
-          result (db/create-wiki-page test-page-id content1)
-          update (db/update-wiki-page test-page-id (:_rev result) content2)]
-      (is (= (:_id result) test-page-id))
+          result (db/create-wiki-page! "-test-123" content1)
+          update (db/update-wiki-page! "-test-123" (:_rev result) content2)]
+      (is (= (:_id result) "-test-123"))
       (is (s/includes? (:content update) "slightly")))))
   
-
-

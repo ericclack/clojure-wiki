@@ -23,18 +23,14 @@
           <div class="collapse navbar-toggleable-xs" id="collapsing-navbar">
               <a class="navbar-brand" href="{{servlet-context}}/">clojure-wiki</a>
               <ul class="nav navbar-nav">
+                  {% for n in nav %}
                   <li class="nav-item">
-                      <a href="{{servlet-context}}/"
-                         class="nav-link{% ifequal page "home.html" %} active{%endifequal%}">
-                      home
+                    <a href="{{servlet-context}}/{{n}}"
+                       class="nav-link{% ifequal doc._id n %} active{%endifequal%}">
+                      {{n}}
                       </a>
                   </li>
-                  <li class="nav-item">
-                      <a href="{{servlet-context}}/about"
-                         class="nav-link{% ifequal page "about.html" %} active{%endifequal%}">
-                      about
-                      </a>
-                  </li>
+                  {% endfor %}
               </ul>
           </div>
       </nav>

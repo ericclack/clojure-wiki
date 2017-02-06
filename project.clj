@@ -25,7 +25,8 @@
                  [ring/ring-defaults "0.2.1"]
                  [selmer "1.10.5"]
                  [com.ashafa/clutch "0.4.0"]
-                 [org.clojure/data.json "0.2.6"]]
+                 [org.clojure/data.json "0.2.6"]
+                 [environ "1.1.0"]]
 
   :min-lein-version "2.0.0"
 
