@@ -32,6 +32,7 @@
 
 (defn set-nav-bar! [items]
   (with-db
-    (let [current-bar (couch/get-document nav-bar-id)
-          new-bar (couch/put-document (merge current-bar {:content items}))]
-      (:content new-bar))))
+    (def current-bar (couch/get-document nav-bar-id))
+    (if (some? current-bar)
+      (:content (couch/put-document (merge current-bar {:content items})))
+      (:content (couch/put-document {:_id nav-bar-id :content items})))))

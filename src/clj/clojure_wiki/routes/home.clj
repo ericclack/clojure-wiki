@@ -37,12 +37,20 @@
   (db/update-wiki-page! id rev content)
   (redirect (str "/" id)))
 
+;; ------------------------------------------------
+
+(defn add-nav [id]
+  (db/set-nav-bar! (set (conj (db/get-nav-bar) id)))
+  (redirect (str "/" id)))
+
+;; ------------------------------------------------
 
 (defroutes home-routes
   (GET "/" [] (home-page))
   (POST "/_create/:id" [id content] (create-page id content))
   (GET "/_edit/:id" [id] (edit-page id))
   (POST "/_edit/:id/:rev" [id rev content] (update-page id rev content))
+  (POST "/_addnav/:id" [id] (add-nav id))
   (GET "/:id" [id] (a-page id))
 )
 

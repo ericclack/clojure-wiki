@@ -31,6 +31,13 @@
                       </a>
                   </li>
                   {% endfor %}
+                  <li class="nav-item">
+                    <form method="POST" action="{{servlet-context}}/_addnav/{{doc._id}}">
+                      {% csrf-field %}
+                      <input type="submit" name="+ Nav" value="+ Nav"/>
+                    </form>
+                  </li>
+                  
               </ul>
           </div>
       </nav>
