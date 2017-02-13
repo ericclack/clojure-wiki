@@ -61,6 +61,10 @@
   (layout/render
    "search.html" {:tag tag :results (db/pages-with-tag tag)}))
 
+(defn word-search [word]
+  (layout/render
+   "search.html" {:words word :results (db/pages-with-word word)}))
+
 ;; ------------------------------------------------
 
 (defroutes home-routes
@@ -70,6 +74,7 @@
   (POST "/_edit/:id/:rev" [id rev content tags] (update-page id rev content tags))
   (POST "/_addnav/:id" [id] (add-nav id))
   (GET "/_tagsearch/:tag" [tag] (tag-search tag))
+  (GET "/_search" [word] (word-search word))  
   (GET "/:id" [id] (a-page id))
 )
 

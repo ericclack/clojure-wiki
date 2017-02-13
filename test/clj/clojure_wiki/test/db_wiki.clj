@@ -88,3 +88,17 @@
 
       (is (= 1 (count results)))
       (is (= "-test-123" (:id (nth results 0)))))))
+
+;; ----------------------------------------------------
+
+(deftest word-search
+  (testing "find no docs"
+    (let [results (db/pages-with-word "definitelydoesntexist")]
+      (is (empty? results))))
+
+  (testing "find one doc"
+    (let [test-doc (db/create-wiki-page! "-test-123"
+                                         "some content with an orange in it")
+          results (db/pages-with-word "orange")]
+      (is (= 1 (count results)))
+      (is (= "-test-123" (:id (first results)))))))

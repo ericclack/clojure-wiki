@@ -38,6 +38,12 @@
                              class="btn btn-secondary btn-sm"/>
                     </form>
                   </li>
+                  <li class="nav-item" style="padding-left: 2em;">
+                    <form method="GET" action="_search">
+                      <input type="search" name="word" value=""/>
+                      <input type="submit" name="go" value="Go"/>
+                    </form>
+                  </li>
                   
               </ul>
           </div>
@@ -47,6 +53,7 @@
       {% block content %}
       {% endblock %}
     </div>
+    
 
     <!-- scripts -->
     {% script "/assets/jquery/jquery.min.js" %}

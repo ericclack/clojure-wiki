@@ -46,3 +46,7 @@
 (defn pages-with-tag [tag]
   (with-db
     (couch/get-view "pages" "by_tag" {:key tag})))
+
+(defn pages-with-word [word]
+  (with-db
+    (couch/get-view "pages" "by_word" {:key word})))
