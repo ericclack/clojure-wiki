@@ -12,6 +12,8 @@ You will need [Leiningen][1] 2.0 or above installed.
 
 Create two databases from the Futon admin system, one for dev, one for testing, and enter their URLs in `profiles.clj`
 
+Create two views, see `resources/couchdb.text`
+
 ## Running
 
 To start a web server for the application, run:

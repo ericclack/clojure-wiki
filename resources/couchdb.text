@@ -1,6 +1,8 @@
 Notes on database set up...
 
-# Map of tags 
+# Map of tags
+
+_design/pages/_views/by_tag
 
 function(doc) {
   if ('tags' in doc) {
@@ -13,6 +15,8 @@ function(doc) {
 
 
 # Map of words to count of occurrence in each doc
+
+_design/pages/_views/by_word
 
 function(doc) {
   const stopwords = ['and', 'the'];
