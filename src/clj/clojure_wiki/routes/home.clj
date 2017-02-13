@@ -55,12 +55,19 @@
 
 ;; ------------------------------------------------
 
+(defn tag-search [tag]
+  (layout/render
+   "search.html" {:tag tag :results (db/pages-with-tag tag)}))
+
+;; ------------------------------------------------
+
 (defroutes home-routes
   (GET "/" [] (home-page))
   (POST "/_create/:id" [id content tags] (create-page id content tags))
   (GET "/_edit/:id" [id] (edit-page id))
   (POST "/_edit/:id/:rev" [id rev content tags] (update-page id rev content tags))
   (POST "/_addnav/:id" [id] (add-nav id))
+  (GET "/_tagsearch/:tag" [tag] (tag-search tag))
   (GET "/:id" [id] (a-page id))
 )
 

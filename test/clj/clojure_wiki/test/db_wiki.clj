@@ -75,3 +75,16 @@
       (is (= (:content updated-page) "new-content"))
       (is (= 'tag2 (nth (:tags updated-page) 1))))))
           
+(deftest getting-docs-by-tags
+  (testing "emply list for unused tag"
+    (let [results (db/pages-with-tag "zzzzzzzzzzzzz")]
+      (is (empty? results))))
+
+  (testing "get a list of docs by tag"
+    (let [test-doc (db/create-wiki-page! "-test-123"
+                                         "some content"
+                                         '(testtagA testtagB))
+          results (db/pages-with-tag "testtagA")]
+
+      (is (= 1 (count results)))
+      (is (= "-test-123" (:id (nth results 0)))))))

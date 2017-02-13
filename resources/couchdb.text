@@ -1,0 +1,14 @@
+Notes on database set up...
+
+function(doc) {
+  if ('tags' in doc) {
+    doc.tags.forEach( function(tag) {
+      emit(tag, doc._id );
+    });
+  }
+}
+
+function(key, values, rereduce) {
+  return values;
+}
+

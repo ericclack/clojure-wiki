@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+      <h1>Your search for {{tag}} found these pages...</h1>
+    </div>    
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+      <ul>
+        {% for r in results %}
+
+        <li><a href="/{{ r.id }}">{{r.id}}</a></li>
+
+        {% endfor %}
+      </ul>
+    </div>    
+</div>
+
+{% endblock %}

@@ -40,3 +40,9 @@
     (if (some? current-bar)
       (:content (couch/put-document (merge current-bar {:content items})))
       (:content (couch/put-document {:_id nav-bar-id :content items})))))
+
+;; --------------------------------------------------
+
+(defn pages-with-tag [tag]
+  (with-db
+    (couch/get-view "pages" "by_tag" {:key tag})))
