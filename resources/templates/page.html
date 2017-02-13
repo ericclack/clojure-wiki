@@ -4,11 +4,16 @@
     <div class="col-sm-12">
       {{ doc.content|markdown }}
     </div>    
+    <div class="col-sm-12">
+      {% for t in doc.tags %}
+      <a href="#" class="btn btn-outline-secondary btn-sm">{{t}}</a>
+      {% endfor %}
+    </div>    
 </div>
 
-<div class="row">
+<div class="row" style="padding-top: 1em;" >
     <div class="col-sm-12">
-        <a href="_edit/{{ doc._id }}">Edit this page</a>
+        <a href="_edit/{{ doc._id }}" class="btn btn-primary">Edit this page</a>
     </div>    
 </div>
 {% endblock %}

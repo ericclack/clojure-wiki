@@ -1,10 +1,18 @@
 (ns clojure-wiki.routes.home
   (:require [clojure-wiki.layout :as layout]
+            [clojure.tools.logging :as log]            
             [compojure.core :refer [defroutes GET POST]]
             [ring.util.response :refer [redirect]]
             [clojure.java.io :as io]
             [clojure-wiki.models.db :as db]
             [clojure.string :as s]))
+
+;; ----------------------------------------------------------
+
+(defn split-tags [tag-string]
+  (s/split tag-string #"[\s,]+"))
+
+;; ----------------------------------------------------------
 
 (defn create-page-form [id]
    (layout/render
@@ -18,14 +26,16 @@
     (if (true? page-exists) 
       (layout/render
        "page.html" {:doc page :nav nav-bar})
-      (create-page-form id))))
+      (do
+        (log/info "page" id "doesn't exist, creating it")
+        (create-page-form id)))))
 
 (defn home-page []
   (a-page "home-page"))
 
 
-(defn create-page [id content]
-  (db/create-wiki-page! id content)
+(defn create-page [id content tags]
+  (db/create-wiki-page! id content (split-tags tags))
   (redirect (str "/" id)))
 
 (defn edit-page [id]
@@ -33,8 +43,8 @@
     (layout/render
        "edit.html" {:doc page})))  
 
-(defn update-page [id rev content]
-  (db/update-wiki-page! id rev content)
+(defn update-page [id rev content tags]
+  (db/update-wiki-page! id rev content (split-tags tags))
   (redirect (str "/" id)))
 
 ;; ------------------------------------------------
@@ -47,9 +57,9 @@
 
 (defroutes home-routes
   (GET "/" [] (home-page))
-  (POST "/_create/:id" [id content] (create-page id content))
+  (POST "/_create/:id" [id content tags] (create-page id content tags))
   (GET "/_edit/:id" [id] (edit-page id))
-  (POST "/_edit/:id/:rev" [id rev content] (update-page id rev content))
+  (POST "/_edit/:id/:rev" [id rev content tags] (update-page id rev content tags))
   (POST "/_addnav/:id" [id] (add-nav id))
   (GET "/:id" [id] (a-page id))
 )

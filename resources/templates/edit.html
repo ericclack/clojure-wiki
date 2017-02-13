@@ -8,18 +8,24 @@
     <h1>Create page '{{id}}'</h1>
     {% endif %}
                      
-    <form class="editPage"
+    <form class="editPage" method="POST"
           {% if doc %}
           action="/_edit/{{doc._id}}/{{doc._rev}}"
           {% else %}
           action="/_create/{{id}}" 
           {% endif %}
-          method="POST">
+          >
       {% csrf-field %}
-      ID: {{doc._id}}<br/>
+      Document ID: {{doc._id}}{{id}}<br/>
       <textarea name="content">{{ doc.content }}</textarea>
       <br/>
-      <input type="submit" name="save" value="Save"/>
+      Tags: <input type="text" name="tags"
+                   {% if doc.tags %}
+                   value="{{doc.tags|join:" "}}"
+                   {% endif %}
+                   />
+      <br/>
+      <input type="submit" name="save" value="Save" class="btn btn-primary"/>
       <div style="float:right;">
         <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a>
       </div>

@@ -34,7 +34,8 @@
                   <li class="nav-item">
                     <form method="POST" action="{{servlet-context}}/_addnav/{{doc._id}}">
                       {% csrf-field %}
-                      <input type="submit" name="+ Nav" value="+ Nav"/>
+                      <input type="submit" name="+ Nav" value="+ Nav"
+                             class="btn btn-secondary btn-sm"/>
                     </form>
                   </li>
                   

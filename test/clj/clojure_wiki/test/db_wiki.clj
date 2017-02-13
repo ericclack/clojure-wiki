@@ -56,3 +56,22 @@
       (is (= (:_id result) "-test-123"))
       (is (s/includes? (:content update) "slightly")))))
   
+;; ----------------------------------------------------
+
+(deftest test-adding-tags
+  (testing "create a wiki page with a tag"
+    (let [content "some simple content"
+          tags '(one two three)
+          new-page (db/create-wiki-page! "-test-123" content tags)]
+      (is (s/includes? (:content new-page) "simple"))
+      (is (= 'one (nth (:tags new-page) 0)))))
+
+  (testing "add some tags to a wiki page"
+    (let [current-page (db/wiki-page "-test-123")
+          updated-page (db/update-wiki-page! "-test-123"
+                                             (:_rev current-page)
+                                             "new-content"
+                                             '(tag1 tag2))]
+      (is (= (:content updated-page) "new-content"))
+      (is (= 'tag2 (nth (:tags updated-page) 1))))))
+          

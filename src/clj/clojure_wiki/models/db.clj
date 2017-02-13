@@ -12,15 +12,19 @@
 (defn wiki-page [id]
   (with-db (couch/get-document id)))
 
-(defn create-wiki-page! [id content]
-  (with-db (couch/put-document {:_id id :content content})))
+(defn create-wiki-page!
+  ([id content] (create-wiki-page! id content nil))
+  ([id content tags]
+   (with-db (couch/put-document {:_id id :content content :tags tags}))))
 
 (defn remove-wiki-page! [id rev]
   (with-db (couch/delete-document {:_id id :_rev rev})))
 
-(defn update-wiki-page! [id rev content]
-  (with-db (couch/put-document
-            {:_id id :_rev rev :content content})))  
+(defn update-wiki-page!
+  ([id rev content] (update-wiki-page! id rev content nil))
+  ([id rev content tags]
+   (with-db (couch/put-document
+             {:_id id :_rev rev :content content :tags tags}))))  
 
 ;; --------------------------------------------------
 
