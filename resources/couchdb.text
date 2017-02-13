@@ -1,5 +1,7 @@
 Notes on database set up...
 
+# Map of tags 
+
 function(doc) {
   if ('tags' in doc) {
     doc.tags.forEach( function(tag) {
@@ -8,7 +10,19 @@ function(doc) {
   }
 }
 
-function(key, values, rereduce) {
-  return values;
-}
 
+
+# Map of words to count of occurrence in each doc
+
+function(doc) {
+  const stopwords = ['and', 'the'];
+  var freq = {};
+  ((doc._id + " " + doc.tags + " " + doc.content).toLowerCase().match(/\w+/g)).forEach(function(word) {
+    if (word.length >= 3 && stopwords.indexOf(word) == -1) {    
+      freq[word] = (freq[word] || 0) +1;
+    }
+  });
+ Object.keys(freq).forEach(function(word) {
+    emit(word, {count: freq[word]});
+  });
+}

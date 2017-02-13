@@ -1,22 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
-  <div class="col-sm-12">
-    {% if doc %}
-    <h1>Edit page '{{doc._id}}'</h1>
-    {% else %}
-    <h1>Create page '{{id}}'</h1>
-    {% endif %}
-                     
-    <form class="editPage" method="POST"
+<form class="editPage" method="POST"
           {% if doc %}
           action="/_edit/{{doc._id}}/{{doc._rev}}"
           {% else %}
           action="/_create/{{id}}" 
           {% endif %}
           >
-      {% csrf-field %}
+  {% csrf-field %}
+
+  <div class="row">
+    <div class="col-sm-12">
+      {% if doc %}
+      <h1>Edit page '{{doc._id}}'</h1>
+      {% else %}
+      <h1>Create page '{{id}}'</h1>
+      {% endif %}
+      
       Document ID: {{doc._id}}{{id}}<br/>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+    
       <textarea name="content">{{ doc.content }}</textarea>
       <br/>
       Tags: <input type="text" name="tags"
@@ -24,13 +31,19 @@
                    value="{{doc.tags|join:" "}}"
                    {% endif %}
                    />
-      <br/>
+    </div>
+  </div>
+  <div class="row" style="padding-top: 0.5em">
+    <div class="col-sm-12">
+
       <input type="submit" name="save" value="Save" class="btn btn-primary"/>
+      {% if doc %} <a href="/{{doc._id}}" class="btn btn-secondary">Cancel</a>{% endif %}
       <div style="float:right;">
         <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a>
       </div>
-    </form>
     </div>
-</div>
- 
+  </div>
+
+</form>
+
 {% endblock %}
