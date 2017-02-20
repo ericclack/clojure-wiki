@@ -4,11 +4,13 @@ A simple Clojure wiki engine with a CouchDB backend. Content is written in Markd
 
 ## Prerequisites
 
+Java 1.8+
+
 You will need [Leiningen][1] 2.0 or above installed.
 
 [1]: https://github.com/technomancy/leiningen
 
-And CouchDB, tested with version 1.6.1. On a Mac you can install with `brew install couchdb`.
+CouchDB, tested with version 1.6.1. On a Mac you can install with `brew install couchdb`, on Debian/Ubuntu/etc `sudo apt-get install couchdb`
 
 ## Set up
 
