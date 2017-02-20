@@ -32,6 +32,7 @@
             </li>
             {% endfor %}
             <li class="nav-item">&nbsp;</li>
+            {% if nav %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                  aria-haspopup="true" aria-expanded="false">
@@ -40,15 +41,19 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="#">Page history (todo)</a>
                 <a class="dropdown-item" href="/_info/links-to/{{doc._id}}">Who links here?</a>
-                {% if nav %}
                 <form method="POST" action="{{servlet-context}}/_addnav/{{doc._id}}" class="dropdown-item form-inline">
                   {% csrf-field %}
                   <button type="submit" value="+ Nav"
-                          class="btn btn-secondary btn-sm">Add to Nav</button>
+                          class="btn btn-secondary btn-sm">Add to nav</button>
                 </form>
-            {% endif %}
+                <form method="POST" action="{{servlet-context}}/_rmnav/{{doc._id}}" class="dropdown-item form-inline">
+                  {% csrf-field %}
+                  <button type="submit" value="+ Nav"
+                          class="btn btn-secondary btn-sm">Remove from nav</button>
+                </form>                
               </div>
             </li>
+            {% endif %}
             <li>
               <form method="GET" action="_search" class="form-inline pull-right">
                 <input type="search" name="word" placeholder="Search" value="{{word}}" class="form-control"/>

@@ -55,6 +55,10 @@
   (db/set-nav-bar! (set (conj (db/get-nav-bar) id)))
   (redirect (str "/" id)))
 
+(defn rm-nav [id]
+  (db/set-nav-bar! (filter #(not= id %) (db/get-nav-bar)))
+  (redirect (str "/" id)))
+
 ;; ------------------------------------------------
 
 (defn tag-search [tag]
@@ -77,6 +81,7 @@
   (GET "/_edit/:id" [id] (edit-page id))
   (POST "/_edit/:id/:rev" [id rev content tags] (update-page id rev content tags))
   (POST "/_addnav/:id" [id] (add-nav id))
+  (POST "/_rmnav/:id" [id] (rm-nav id))
   (GET "/_tagsearch/:tag" [tag] (tag-search tag))
   (GET "/_search" [word] (word-search word))
   (GET "/_info/links-to/:id" [id] (who-links-to id))
