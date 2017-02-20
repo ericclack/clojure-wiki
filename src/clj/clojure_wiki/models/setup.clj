@@ -1,11 +1,11 @@
-(ns clojure-wiki.models.db
+(ns clojure-wiki.models.setup
   (:require [com.ashafa.clutch :as couch]
             [clojure-wiki.models.db :as db]))
 
 
-(defn create-map-of-tags-to-docs []
-  (with-db
-    (couch/save-view "pages3" (couch/view-server-fns
+(defn create-page-views []
+  (db/with-db
+    (couch/save-view "pages" (couch/view-server-fns
                                :javascript
                                {:by_tag {:map
 "function(doc) {
@@ -15,13 +15,8 @@
     });
   }
 }"
-                                         }}))))
-
-(defn create-map-of-words-to-docs []
-  (with-db
-    (couch/save-view "pages3" (couch/view-server-fns
-                               :javascript
-                               {:by_word {:map
+                                         }
+                                :by_word {:map
 "function(doc) {
   const stopwords = ['and', 'the'];
   var freq = {};
@@ -38,6 +33,5 @@
 
 
 (defn setup-db []
-  (create-map-of-tags-to-docs)
-  (create-map-of-words-to-docs))
+  (create-page-views))
 
