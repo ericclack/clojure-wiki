@@ -63,4 +63,7 @@
                                (pjstadig.humane-test-output/activate!)]}
    :project/test {:resource-paths ["env/test/resources"]}
    :profiles/dev {}
-   :profiles/test {}})
+   :profiles/test {}}
+  :aliases
+  {"setup-db" ["run" "-m" "clojure-wiki.models.setup/setup-db"]}
+  )
