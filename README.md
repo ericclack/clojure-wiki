@@ -1,6 +1,6 @@
 # clojure-wiki
 
-generated using Luminus version "2.9.11.24"
+A simple Clojure wiki engine with a CouchDB backend. Content is written in Markdown and the engine supports tag navigation and simple word search.
 
 ## Prerequisites
 
@@ -8,13 +8,15 @@ You will need [Leiningen][1] 2.0 or above installed.
 
 [1]: https://github.com/technomancy/leiningen
 
+And CouchDB, tested with version 1.6.1
+
 ## Set up
 
 Create two databases from the Futon admin system, one for dev, one for testing, and enter their URLs in `profiles.clj`
 
 Create the database views:
 
-   lein setup-db
+    lein setup-db
 
 ## Running
 
