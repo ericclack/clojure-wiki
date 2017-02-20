@@ -14,46 +14,46 @@
   <body>
       <!-- navbar -->
       <nav class="navbar navbar-dark bg-primary" role="navigation">
-          <button class="navbar-toggler hidden-sm-up"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapsing-navbar">
-              &#9776;
-          </button>
-          <div class="collapse navbar-toggleable-xs" id="collapsing-navbar">
-              <a class="navbar-brand" href="{{servlet-context}}/">clojure-wiki</a>
-              <ul class="nav navbar-nav">
-                  {% for n in nav %}
-                  <li class="nav-item">
-                    <a href="{{servlet-context}}/{{n}}"
-                       class="nav-link{% ifequal doc._id n %} active{%endifequal%}">
-                      {{n}}
-                      </a>
-                  </li>
-                  {% endfor %}
-                  <li class="nav-item">
-                    <form method="POST" action="{{servlet-context}}/_addnav/{{doc._id}}">
-                      {% csrf-field %}
-                      <input type="submit" name="+ Nav" value="+ Nav"
-                             class="btn btn-secondary btn-sm"/>
-                    </form>
-                  </li>
-                  <li class="nav-item" style="padding-left: 2em;">
-                    <form method="GET" action="_search">
-                      <input type="search" name="word" value="{{word}}"/>
-                      <input type="submit" name="go" value="Go"/>
-                    </form>
-                  </li>
-                  
-              </ul>
-          </div>
+        <button class="navbar-toggler hidden-sm-up"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapsing-navbar">
+          &#9776;
+        </button>
+        <div class="collapse navbar-toggleable-xs" id="collapsing-navbar">
+          <a class="navbar-brand" href="{{servlet-context}}/">Home</a>
+          <ul class="nav navbar-nav">
+            {% for n in nav %}
+            <li class="nav-item">
+              <a href="{{servlet-context}}/{{n}}"
+                 class="nav-link{% ifequal doc._id n %} active{%endifequal%}">
+                {{n}}
+              </a>
+            </li>
+            {% endfor %}
+            {% if nav %}
+            <li class="nav-item">
+              <form method="POST" action="{{servlet-context}}/_addnav/{{doc._id}}" class="form-inline">
+                {% csrf-field %}
+                <button type="submit" value="+ Nav"
+                        class="btn btn-secondary btn-sm">+ Nav</button>
+              </form>
+            </li>
+            {% endif %}
+            <li>
+              <form method="GET" action="_search" class="form-inline pull-right">
+                <input type="search" name="word" placeholder="Search" value="{{word}}" class="form-control"/>
+                <button type="submit" class="btn">Go</button>
+              </form>
+            </li>
+          </ul>
+        </div>
       </nav>
 
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-    </div>
-    
+      <div class="container">
+        {% block content %}
+        {% endblock %}
+      </div>
 
     <!-- scripts -->
     {% script "/assets/jquery/jquery.min.js" %}
