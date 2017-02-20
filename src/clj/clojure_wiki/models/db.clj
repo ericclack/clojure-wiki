@@ -50,3 +50,7 @@
 (defn pages-with-word [word]
   (with-db
     (couch/get-view "pages" "by_word" {:key word})))
+
+(defn who-links-to [id]
+  (with-db
+    (couch/get-view "page_graph" "who_links_to" {:key id})))

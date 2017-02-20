@@ -18,6 +18,7 @@
 (defn doc-prep-fixture [f]
   ;; Set up code
   (delete-if-exists "-test-123")
+  (delete-if-exists "-test-124")
   ;; The test
   (f)
   ;; Tear down code
@@ -102,3 +103,34 @@
           results (db/pages-with-word "orange")]
       (is (= 1 (count results)))
       (is (= "-test-123" (:id (first results)))))))
+
+;; -----------------------------------------------------
+
+(deftest who-links-to
+  (testing "simple link"
+    (let [page1 (db/create-wiki-page! "-test-123"
+                                      "some content with a [[-test-124]] link")
+          page2 (db/create-wiki-page! "-test-124"
+                                      "some more content")
+          results (db/who-links-to "-test-124")]
+      (is (= 1 (count results)))
+      (is (= "-test-123" (:id (first results)))))))
+
+(deftest who-links-to-2
+  (testing "lower-case link"
+    (let [page1 (db/create-wiki-page! "-test-123"
+                                      "some content with a [[-Test-124]] link")
+          page2 (db/create-wiki-page! "-test-124"
+                                      "some more content")
+          results (db/who-links-to "-test-124")]
+      (is (= "-test-123" (:id (first results)))))))
+
+(deftest who-links-to-3
+  (testing "links with spaces"
+    (let [page1 (db/create-wiki-page! "-test-123"
+                                      "some content with a [[-Test 124]] link")
+          page2 (db/create-wiki-page! "-test-124"
+                                      "some more content")
+          results (db/who-links-to "-test-124")]
+      (is (= "-test-123" (:id (first results)))))))
+

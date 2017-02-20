@@ -31,7 +31,23 @@
 }"
                                           }}))))
 
+(defn create-page-graph-views []
+  (db/with-db
+    (couch/save-view "page_graph" (couch/view-server-fns
+                                    :javascript
+                                    {:who_links_to {:map
+"
+function(doc) {
+  regex = /\\[\\[([\\w -]+)\\]\\]/g;
+  while( match = regex.exec(doc.content) ) {
+    emit(match[1].toLowerCase().replace(\" \",\"-\"), doc._id);
+  }
+}
+"
+                                                    }}))))
 
+                       
 (defn setup-db []
-  (create-page-views))
+  (create-page-views)
+  (create-page-graph-views))
 
