@@ -8,19 +8,23 @@ You will need [Leiningen][1] 2.0 or above installed.
 
 [1]: https://github.com/technomancy/leiningen
 
-And CouchDB, tested with version 1.6.1
+And CouchDB, tested with version 1.6.1. On a Mac you can install with `brew install couchdb`.
 
 ## Set up
 
-Create two databases from the Futon admin system, one for dev, one for testing, and enter their URLs in `profiles.clj`
+Start up couchdb:
 
-Create the database views:
+    couchdb
+
+Then from the Futon admin system - http://127.0.0.1:5984/_utils/ - create two databases, one for dev, one for testing, and enter their URLs in `profiles.clj`.
+
+Now create the database views:
 
     lein setup-db
 
 ## Running
 
-Start CouchDB run:
+If you've not already done so, start CouchDB:
 
     couchdb
 
@@ -29,8 +33,6 @@ To start a web server for the application, run:
     lein run
     
 Now browse app: http://127.0.0.1:3000/
-
-You can use the CouchDB Futon admin: http://127.0.0.1:5984/_utils/
 
 ## License
 
