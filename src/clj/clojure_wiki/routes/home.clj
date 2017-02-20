@@ -63,7 +63,7 @@
 
 (defn word-search [word]
   (layout/render
-   "search.html" {:word word :results (db/pages-with-word word)}))
+   "search.html" {:word word :results (db/pages-with-word (s/lower-case word))}))
 
 ;; ------------------------------------------------
 

@@ -2,21 +2,25 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-sm-12">
-      <h1>Your search for '{{tag}}{{word}}' found these pages...</h1>
-    </div>    
+  <div class="col-sm-12">
+    {% if results|empty? %}
+    <h1>Sorry, your search for '{{tag}}{{word}}' didn't return any results</h1>
+    {% else %}
+    <h1>Your search for '{{tag}}{{word}}' found these pages...</h1>
+    {% endif %}
+  </div>    
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
-      <ul>
-        {% for r in results %}
-
-        <li><a href="/{{ r.id }}">{{r.id}}</a></li>
-
-        {% endfor %}
-      </ul>
-    </div>    
+  <div class="col-sm-12">
+    <ul>
+      {% for r in results %}
+      
+      <li><a href="/{{ r.id }}">{{r.id}}</a></li>
+      
+      {% endfor %}
+    </ul>
+  </div>    
 </div>
 
 {% endblock %}
