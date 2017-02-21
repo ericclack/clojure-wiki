@@ -36,3 +36,10 @@ form.editPage textarea {
     width: 85vw;
     height: 65vh;
 }
+
+pre code {
+    display: block;
+    background-color: #eee;
+    margin-left: 2em;
+    padding: 0.3em;
+}

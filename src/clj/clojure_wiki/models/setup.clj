@@ -40,7 +40,7 @@
 function(doc) {
   regex = /\\[\\[([\\w -]+)\\]\\]/g;
   while( match = regex.exec(doc.content) ) {
-    emit(match[1].toLowerCase().replace(\" \",\"-\"), doc._id);
+    emit(match[1].toLowerCase().replace(/ /g,\"-\"), doc._id);
   }
 }
 "
