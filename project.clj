@@ -8,7 +8,7 @@
                  [cprop "0.1.9"]
                  [luminus-immutant "0.2.3"]
                  [luminus-nrepl "0.1.4"]
-                 [markdown-clj "0.9.91"]
+                 [markdown-clj "0.9.95"]
                  [metosin/ring-http-response "0.8.0"]
                  [mount "0.1.11"]
                  [org.clojure/clojure "1.8.0"]

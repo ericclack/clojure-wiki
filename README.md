@@ -47,6 +47,10 @@ To start a web server for the application, run:
     
 Now browse app: http://127.0.0.1:3000/
 
+## Hints
+
+Add links between pages [[Like This]]. 
+
 ## License
 
 Copyright © 2017 Eric Clack
