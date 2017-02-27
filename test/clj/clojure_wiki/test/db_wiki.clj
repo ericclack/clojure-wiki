@@ -146,3 +146,11 @@
   (testing "wiki-page-timestamp"
     (let [doc (db/create-wiki-page! "-test-123" "a doc")]
       (is (not (nil? (:timestamp doc)))))))
+
+(deftest history-dates
+  (testing "history with dates"
+    (let [v1 (db/create-wiki-page! "-test-123" "some content")
+          v2 (db/update-wiki-page! "-test-123" (:_rev v1) "some new content")
+          history (db/wiki-page-history "-test-123")]
+      (is (= (:timestamp v2) (:timestamp (first history))))
+      (is (= (:timestamp v1) (:timestamp (second history)))))))

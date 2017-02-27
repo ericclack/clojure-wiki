@@ -10,11 +10,12 @@
 
 <div class="row">
   <div class="col-sm-12">
+    <strong>Revisions:</strong>
     <ul>
       {% for h in history %}
-      
-      <li>Revision <a href="/{{ h.id }}/{{ h.rev }}">{{h.rev}}</a></li>
-      
+      <li>{% if h.timestamp %}{{h.timestamp}}{% else %}{{h.rev}}{% endif %}:
+        <a href="/{{ h.id }}/{{ h.rev }}">View</a> . 
+        <a href="/_edit/{{ h.id }}/{{ h.rev }}">Revert (todo)</a></li>
       {% endfor %}
     </ul>
   </div>    

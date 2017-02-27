@@ -14,7 +14,12 @@
                  (:ids revisions))))
 
 (defn- time-now []
+  "Generate the time now as a string like 2012-04-23T18:25:43.511Z"
   (.toString (java.time.LocalDateTime/now)))
+
+(defn- add-in-timestamps [docs]
+  (map #(assoc % :timestamp (:timestamp (wiki-page (:id %) (:rev %))))
+       docs))
 
 ;; --------------------------------------------------
 
@@ -24,7 +29,7 @@
 
 (defn wiki-page-history [id]
   (let [histdoc (with-db (couch/get-document id :revs true))]
-    (make-history-ids id (:_revisions histdoc))))
+    (add-in-timestamps (make-history-ids id (:_revisions histdoc)))))
 
 (defn create-wiki-page!
   ([id content] (create-wiki-page! id content nil))
