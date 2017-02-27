@@ -1,7 +1,7 @@
 (ns clojure-wiki.handler
   (:require [compojure.core :refer [routes wrap-routes]]
             [clojure-wiki.layout :refer [error-page]]
-            [clojure-wiki.routes.home :refer [home-routes]]
+            [clojure-wiki.routes.wiki :refer [wiki-routes]]
             [compojure.route :as route]
             [clojure-wiki.env :refer [defaults]]
             [mount.core :as mount]
@@ -13,7 +13,7 @@
 
 (def app-routes
   (routes
-    (-> #'home-routes
+    (-> #'wiki-routes
         (wrap-routes middleware/wrap-csrf)
         (wrap-routes middleware/wrap-formats))
     (route/not-found

@@ -2,7 +2,7 @@
 {% block content %}
 <form class="editPage" method="POST"
           {% if doc %}
-          action="/_edit/{{doc._id}}/{{doc._rev}}"
+          action="/_edit/{{doc._id}}/{{latestrev}}"
           {% else %}
           action="/_create/{{id}}" 
           {% endif %}
@@ -12,7 +12,12 @@
   <div class="row">
     <div class="col-sm-12">
       {% if doc %}
-      <h1>Edit page '{{doc._id}}'</h1>
+        {% ifequal doc._rev latestrev %}
+          <h1>Edit page '{{doc._id}}'</h1>
+        {% else %}
+          <h1>Revert page '{{doc._id}}'</h1>
+          <p>Review the old page below and save to revert the content to revision {{doc._rev}}.</p>
+        {% endifequal %}
       {% else %}
       <h1>Create page '{{id}}'</h1>
       {% endif %}

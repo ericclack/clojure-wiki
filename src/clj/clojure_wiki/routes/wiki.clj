@@ -1,4 +1,4 @@
-(ns clojure-wiki.routes.home
+(ns clojure-wiki.routes.wiki
   (:require [clojure-wiki.layout :as layout]
             [clojure.tools.logging :as log]            
             [compojure.core :refer [defroutes GET POST]]
@@ -45,9 +45,18 @@
   (redirect (str "/" id)))
 
 (defn edit-page [id]
-  (let [page (db/wiki-page id)]
-    (layout/render
-       "edit.html" {:doc page})))  
+  (let [page (db/wiki-page id)
+        latestrev (:_rev page)]
+    (layout/render "edit.html" {:doc page
+                                :latestrev latestrev})))
+
+(defn edit-page-rev [id rev]
+  ;; When saving we need to specify the latest rev
+  (let [oldpage (db/wiki-page id rev)
+        latestpage (db/wiki-page id)
+        latestrev (:_rev latestpage)]
+    (layout/render "edit.html" {:doc oldpage
+                                :latestrev latestrev})))
 
 (defn update-page [id rev content tags]
   (db/update-wiki-page! id rev content (split-tags tags))
@@ -86,9 +95,10 @@
 
 ;; ------------------------------------------------
 
-(defroutes home-routes
+(defroutes wiki-routes
   (GET "/" [] (home-page))
   (POST "/_create/:id" [id content tags] (create-page id content tags))
+  (GET "/_edit/:id/:rev" [id rev] (edit-page-rev id rev))
   (GET "/_edit/:id" [id] (edit-page id))
   (POST "/_edit/:id/:rev" [id rev content tags] (update-page id rev content tags))
   (POST "/_addnav/:id" [id] (add-nav id))

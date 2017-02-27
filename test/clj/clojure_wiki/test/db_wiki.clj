@@ -136,7 +136,7 @@
     (let [v1 (db/create-wiki-page! "-test-123" "some content")
           v2 (db/update-wiki-page! "-test-123" (:_rev v1) "some new content")
           history (db/wiki-page-history "-test-123")]
-      (is (< 2 (count history)))
+      (is (<= 2 (count history)))
       (is (= (:_rev v2) (:rev (first history))))
       (is (= (:_rev v1) (:rev (second history)))))))
 

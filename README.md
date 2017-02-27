@@ -1,6 +1,7 @@
 # clojure-wiki
 
-A simple Clojure wiki engine with a CouchDB backend. Content is written in Markdown and the engine supports tag navigation and simple word search.
+A simple Clojure wiki engine with a CouchDB backend, intended as a personal wiki.
+Content is written in Markdown and the engine supports tag navigation and simple word search.
 
 ## Prerequisites
 
@@ -21,11 +22,8 @@ Start up couchdb:
 Then from the Futon admin system - http://127.0.0.1:5984/_utils/ - create two databases, one for dev, one for testing, and enter their URLs in `profiles.clj`. Here's an example file:
 
 ```
-;; WARNING
 ;; The profiles.clj file is used for local environment variables, such as database credentials.
 ;; This file is listed in .gitignore and will be excluded from version control by Git.
-
-;; https://github.com/weavejester/environ
 
 {:profiles/dev  {:env {:database-url "wiki"}}
  :profiles/test {:env {:database-url "wiki-test"}}}
