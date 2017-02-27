@@ -6,16 +6,33 @@
   [& body]
   `(couch/with-db (env :database-url)
     ~@body))
-  
+
+(defn- make-history-ids [id revisions]
+  "A list of dics representing this page's history: {id, rev}"
+  (let [latest-rev (:start revisions)]
+    (map-indexed #(hash-map :id id :rev (str (- latest-rev %1) "-" %2))
+                 (:ids revisions))))
+
+(defn- time-now []
+  (.toString (java.time.LocalDateTime/now)))
+
 ;; --------------------------------------------------
 
-(defn wiki-page [id]
-  (with-db (couch/get-document id)))
+(defn wiki-page
+  ([id] (with-db (couch/get-document id)))
+  ([id rev] (with-db (couch/get-document id :rev rev))))
+
+(defn wiki-page-history [id]
+  (let [histdoc (with-db (couch/get-document id :revs true))]
+    (make-history-ids id (:_revisions histdoc))))
 
 (defn create-wiki-page!
   ([id content] (create-wiki-page! id content nil))
   ([id content tags]
-   (with-db (couch/put-document {:_id id :content content :tags tags}))))
+   (with-db (couch/put-document {:_id id
+                                 :content content
+                                 :tags tags
+                                 :timestamp (time-now)}))))
 
 (defn remove-wiki-page! [id rev]
   (with-db (couch/delete-document {:_id id :_rev rev})))
@@ -23,8 +40,11 @@
 (defn update-wiki-page!
   ([id rev content] (update-wiki-page! id rev content nil))
   ([id rev content tags]
-   (with-db (couch/put-document
-             {:_id id :_rev rev :content content :tags tags}))))  
+   (with-db (couch/put-document {:_id id
+                                 :_rev rev
+                                 :content content
+                                 :tags tags
+                                 :timestamp (time-now)}))))  
 
 ;; --------------------------------------------------
 

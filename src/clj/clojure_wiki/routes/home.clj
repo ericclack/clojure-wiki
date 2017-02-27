@@ -32,9 +32,13 @@
         (log/info "page" id "doesn't exist, creating it")
         (create-page-form id)))))
 
+(defn a-page-rev [id rev]
+  (layout/render "page.html"
+                 {:doc (db/wiki-page id rev)
+                  :nav (db/get-nav-bar)}))
+
 (defn home-page []
   (a-page "home-page"))
-
 
 (defn create-page [id content tags]
   (db/create-wiki-page! id content (split-tags tags))
@@ -75,6 +79,13 @@
 
 ;; ------------------------------------------------
 
+(defn history [id]
+  (layout/render
+   "history.html" {:doc (db/wiki-page id)
+                   :history (db/wiki-page-history id)}))
+
+;; ------------------------------------------------
+
 (defroutes home-routes
   (GET "/" [] (home-page))
   (POST "/_create/:id" [id content tags] (create-page id content tags))
@@ -85,6 +96,8 @@
   (GET "/_tagsearch/:tag" [tag] (tag-search tag))
   (GET "/_search" [word] (word-search word))
   (GET "/_info/links-to/:id" [id] (who-links-to id))
+  (GET "/_history/:id" [id] (history id))
+  (GET "/:id/:rev" [id rev] (a-page-rev id rev))
   (GET "/:id" [id] (a-page id))
 )
 

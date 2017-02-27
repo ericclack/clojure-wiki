@@ -39,7 +39,7 @@
                 Actions
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Page history (todo)</a>
+                <a class="dropdown-item" href="/_history/{{doc._id}}">Page history</a>
                 <a class="dropdown-item" href="/_info/links-to/{{doc._id}}">Who links here?</a>
                 <form method="POST" action="{{servlet-context}}/_addnav/{{doc._id}}" class="dropdown-item form-inline">
                   {% csrf-field %}

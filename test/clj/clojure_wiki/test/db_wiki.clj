@@ -1,7 +1,8 @@
 (ns clojure-wiki.test.db-wiki
   (:require [clojure.test :refer :all]
             [clojure.string :as s]
-            [clojure-wiki.models.db :as db]))
+            [clojure-wiki.models.db :as db]
+            [clojure-wiki.test.utils :as utils]))
 
 ;; Run this from lein test so that it uses the test environment
 ;; and database-url.
@@ -9,16 +10,10 @@
 ;; To Do:
 ;; - 
 
-(defn delete-if-exists
-  [id]
-  (let [page (db/wiki-page id)]
-    (when (some? page)
-      (db/remove-wiki-page! id (:_rev page)))))
-
 (defn doc-prep-fixture [f]
   ;; Set up code
-  (delete-if-exists "-test-123")
-  (delete-if-exists "-test-124")
+  (utils/delete-if-exists "-test-123")
+  (utils/delete-if-exists "-test-124")
   ;; The test
   (f)
   ;; Tear down code
@@ -99,8 +94,8 @@
 
   (testing "find one doc"
     (let [test-doc (db/create-wiki-page! "-test-123"
-                                         "some content with an orange in it")
-          results (db/pages-with-word "orange")]
+                                         "some content with an orangeorangeorange in it")
+          results (db/pages-with-word "orangeorangeorange")]
       (is (= 1 (count results)))
       (is (= "-test-123" (:id (first results)))))))
 
@@ -134,3 +129,20 @@
           results (db/who-links-to "-test-124")]
       (is (= "-test-123" (:id (first results)))))))
 
+;; -----------------------------------------------------
+
+(deftest simple-history
+  (testing "wiki-page-history"
+    (let [v1 (db/create-wiki-page! "-test-123" "some content")
+          v2 (db/update-wiki-page! "-test-123" (:_rev v1) "some new content")
+          history (db/wiki-page-history "-test-123")]
+      (is (< 2 (count history)))
+      (is (= (:_rev v2) (:rev (first history))))
+      (is (= (:_rev v1) (:rev (second history)))))))
+
+;; -----------------------------------------------------
+
+(deftest doc-dates
+  (testing "wiki-page-timestamp"
+    (let [doc (db/create-wiki-page! "-test-123" "a doc")]
+      (is (not (nil? (:timestamp doc)))))))

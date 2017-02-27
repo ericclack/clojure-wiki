@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-12">
+    <h1>Page history for '{{doc._id}}'</h1>
+
+  </div>    
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <ul>
+      {% for h in history %}
+      
+      <li>Revision <a href="/{{ h.id }}/{{ h.rev }}">{{h.rev}}</a></li>
+      
+      {% endfor %}
+    </ul>
+  </div>    
+</div>
+
+{% endblock %}
