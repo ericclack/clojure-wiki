@@ -18,7 +18,8 @@
   (.toString (java.time.LocalDateTime/now)))
 
 (defn- add-in-timestamps [docs]
-  (map #(assoc % :timestamp (:timestamp (wiki-page (:id %) (:rev %))))
+  (map #(assoc % :timestamp
+               (:timestamp (with-db (couch/get-document (:id %) :rev (:rev %)))))
        docs))
 
 ;; --------------------------------------------------
