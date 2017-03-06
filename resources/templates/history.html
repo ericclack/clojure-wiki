@@ -15,7 +15,7 @@
       {% for h in history %}
       <li>{% if h.timestamp %}{{h.timestamp}}{% else %}{{h.rev}}{% endif %}:
         <a href="/{{ h.id }}/{{ h.rev }}">View</a> . 
-        <a href="/_edit/{{ h.id }}/{{ h.rev }}">Revert (todo)</a></li>
+        <a href="/_edit/{{ h.id }}/{{ h.rev }}">Revert</a></li>
       {% endfor %}
     </ul>
   </div>    

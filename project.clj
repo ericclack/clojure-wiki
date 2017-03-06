@@ -8,7 +8,7 @@
                  [cprop "0.1.9"]
                  [luminus-immutant "0.2.3"]
                  [luminus-nrepl "0.1.4"]
-                 [markdown-clj "0.9.95"]
+                 [markdown-clj "0.9.97"]
                  [metosin/ring-http-response "0.8.0"]
                  [mount "0.1.11"]
                  [org.clojure/clojure "1.8.0"]
@@ -38,7 +38,8 @@
 
   :plugins [[lein-cprop "1.0.1"]
             [lein-immutant "2.1.0"]
-            [cider/cider-nrepl "0.14.0"]]
+            [cider/cider-nrepl "0.14.0"]
+            [lein-codox "0.10.3"]]
 
   :profiles
   {:uberjar {:omit-source true

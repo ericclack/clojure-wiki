@@ -25,6 +25,8 @@
 ;; --------------------------------------------------
 
 (defn wiki-page
+  "Return the wiki page with this id, and optionally a revision.
+  The return is a hash-map with keys :_id :_rev :content :tags :timestamp."
   ([id] (with-db (couch/get-document id)))
   ([id rev] (with-db (couch/get-document id :rev rev))))
 

@@ -1,9 +1,13 @@
-(ns clojure-wiki.models.setup
+(ns ^{:doc "Set up CouchDB for the wiki engine. Run these functions 
+            once after install with `lein setup-db`"}
+    clojure-wiki.models.setup
   (:require [com.ashafa.clutch :as couch]
             [clojure-wiki.models.db :as db]))
 
-
-(defn create-page-views []
+(defn create-page-views 
+  "Create CouchDB views pages/by_tag and pages/by_word.
+  by_tag enables tag navigation, by_word is a simple search index."
+  []
   (db/with-db
     (couch/save-view "pages" (couch/view-server-fns
                                :javascript
@@ -31,7 +35,10 @@
 }"
                                           }}))))
 
-(defn create-page-graph-views []
+(defn create-page-graph-views
+  "Create CouchDB views page_graph/who_links_to.
+  Which pages link to which page via links of form [[link]]."
+  []
   (db/with-db
     (couch/save-view "page_graph" (couch/view-server-fns
                                     :javascript
@@ -47,7 +54,9 @@ function(doc) {
                                                     }}))))
 
                        
-(defn setup-db []
+(defn setup-db
+  "Create all the views we need."
+  []
   (create-page-views)
   (create-page-graph-views))
 
