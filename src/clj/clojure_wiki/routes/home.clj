@@ -1,4 +1,4 @@
-(ns clojure-wiki.routes.wiki
+(ns clojure-wiki.routes.home
   (:require [clojure-wiki.layout :as layout]
             [clojure.tools.logging :as log]            
             [compojure.core :refer [defroutes GET POST]]
@@ -95,7 +95,7 @@
 
 ;; ------------------------------------------------
 
-(defroutes wiki-routes
+(defroutes home-routes
   (GET "/" [] (home-page))
   (POST "/_create/:id" [id content tags] (create-page id content tags))
   (GET "/_edit/:id/:rev" [id rev] (edit-page-rev id rev))
