@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-12">
+    <h1>Recent changes</h1>
+  </div>    
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <table>
+      {% for r in results %}
+      <tr>
+        <td><a href="/{{ r.id }}">{{r.id}}</a></td>
+        <td>{{r.timestamp}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>    
+</div>
+
+{% endblock %}

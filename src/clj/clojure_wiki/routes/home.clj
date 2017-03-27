@@ -93,6 +93,10 @@
    "history.html" {:doc (db/wiki-page id)
                    :history (db/wiki-page-history id)}))
 
+(defn recent-changes []
+  (layout/render
+   "changes.html" {:results (db/recent-changes)}))
+
 ;; ------------------------------------------------
 
 (defroutes home-routes
@@ -107,6 +111,7 @@
   (GET "/_search" [word] (word-search word))
   (GET "/_info/links-to/:id" [id] (who-links-to id))
   (GET "/_history/:id" [id] (history id))
+  (GET "/_changes" [] (recent-changes))
   (GET "/:id/:rev" [id rev] (a-page-rev id rev))
   (GET "/:id" [id] (a-page id))
 )

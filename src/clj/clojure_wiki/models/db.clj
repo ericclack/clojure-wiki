@@ -1,6 +1,8 @@
 (ns clojure-wiki.models.db
   (:require [com.ashafa.clutch :as couch]
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]]
+            [clj-time.core :as t]
+            [clj-time.format :as tf]))
 
 (defmacro with-db
   [& body]
@@ -82,3 +84,12 @@
 (defn who-links-to [id]
   (with-db
     (couch/get-view "page_graph" "who_links_to" {:key id})))
+
+(defn parse-date-string [ds]
+   (tf/parse (tf/formatters :date-hour-minute-second-ms)
+             ds))
+
+(defn recent-changes []
+  (map #(assoc % :timestamp (:key %))
+       (with-db
+         (take 100 (couch/get-view "pages" "by_timestamp" {:descending true})))))

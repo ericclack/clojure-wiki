@@ -32,6 +32,7 @@
             </li>
             {% endfor %}
             <li class="nav-item">&nbsp;</li>
+            
             {% if doc %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -54,8 +55,11 @@
               </div>
             </li>
             {% endif %}
+
+            <li class="nav-item"><a href="{{servlet-context}}/_changes" class="nav-link">Changes</a></li>
+            
             <li>
-              <form method="GET" action="_search" class="form-inline pull-right">
+              <form method="GET" action="{{servlet-context}}/_search" class="form-inline pull-right">
                 <input type="search" name="word" placeholder="Search" value="{{word}}" class="form-control"/>
                 <button type="submit" class="btn">Go</button>
               </form>
