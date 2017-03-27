@@ -10,18 +10,22 @@
   []
   (db/with-db
     (couch/save-view "pages" (couch/view-server-fns
-                               :javascript
-                               {:by_tag {:map
-"function(doc) {
+                              :javascript
+{:by_tag
+ {:map
+  "
+function(doc) {
   if ('tags' in doc) {
     doc.tags.forEach( function(tag) {
       emit(tag, doc._id );
     });
   }
-}"
-                                         }
-                                :by_word {:map
-"function(doc) {
+}"}
+ 
+ :by_word
+ {:map
+  "
+function(doc) {
   const stopwords = ['and', 'the'];
   var freq = {};
   ((doc._id + \" \" + doc.tags + \" \" + doc.content).toLowerCase().match(/\\w+/g)).forEach(function(word) {
@@ -32,8 +36,17 @@
   Object.keys(freq).forEach(function(word) {
     emit(word, {count: freq[word]});
   });
-}"
-                                          }}))))
+}"}
+
+ :by_timestamp
+ {:map
+   "
+function(doc) {
+  if (doc.timestamp) {
+    emit(doc.timestamp, doc.id);
+  }
+}"}
+  }))))
 
 (defn create-page-graph-views
   "Create CouchDB views page_graph/who_links_to.
@@ -42,8 +55,9 @@
   (db/with-db
     (couch/save-view "page_graph" (couch/view-server-fns
                                     :javascript
-                                    {:who_links_to {:map
-"
+{:who_links_to
+ {:map
+  "
 function(doc) {
   regex = /\\[\\[([\\w -]+)\\]\\]/g;
   while( match = regex.exec(doc.content) ) {
@@ -51,7 +65,7 @@ function(doc) {
   }
 }
 "
-                                                    }}))))
+  }}))))
 
                        
 (defn setup-db
