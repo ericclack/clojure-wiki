@@ -4,7 +4,7 @@
             [clojure-wiki.models.db :as db]))
 
 
-(defn delete-if-exists
+(defn delete-if-exists!
   [id]
   (let [page (db/wiki-page id)]
     (when (some? page)

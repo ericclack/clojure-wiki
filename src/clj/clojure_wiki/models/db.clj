@@ -4,9 +4,11 @@
             [clj-time.core :as t]
             [clj-time.format :as tf]))
 
+(def database-url (env :database-url))
+
 (defmacro with-db
   [& body]
-  `(couch/with-db (env :database-url)
+  `(couch/with-db database-url
     ~@body))
 
 (defn- make-history-ids [id revisions]

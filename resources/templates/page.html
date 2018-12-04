@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">
-    <div class="col-sm-12">
+  <p class="breadcrumb">
+    {% for b in breadcrumb %}
+    <a href="{{b.id}}">{{b.id}}</a> . 
+    {% endfor %}
+  </p>
+
+  <div class="col-sm-12">
       {{ doc.content|markdown }}
     </div>    
     <div class="col-sm-12">

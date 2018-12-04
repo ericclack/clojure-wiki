@@ -25,13 +25,18 @@ Then from the Futon admin system - http://127.0.0.1:5984/_utils/ - create two da
 ;; The profiles.clj file is used for local environment variables, such as database credentials.
 ;; This file is listed in .gitignore and will be excluded from version control by Git.
 
-{:profiles/dev  {:env {:database-url "wiki"}}
+{:profiles/dev  {:env {:database-url "wiki"
+                       :database-test-url "wiki-test"}}
  :profiles/test {:env {:database-url "wiki-test"}}}
 ```
 
 Now create the database views:
 
     lein setup-db
+
+And for tests:
+
+    DATABASE_URL=wiki-test lein setup-db
 
 ## Running
 

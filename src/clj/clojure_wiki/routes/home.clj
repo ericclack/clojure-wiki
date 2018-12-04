@@ -24,10 +24,11 @@
   ;; Render a page, or show the create page form
   (let [page (db/wiki-page id) 
         page-exists (not (nil? page))
-        nav-bar (db/get-nav-bar)]
+        nav-bar (db/get-nav-bar)
+        breadcrumb (db/who-links-to id)]
     (if (true? page-exists) 
       (layout/render
-       "page.html" {:doc page :nav nav-bar})
+       "page.html" {:doc page :nav nav-bar :breadcrumb breadcrumb})
       (do
         (log/info "page" id "doesn't exist, creating it")
         (create-page-form id)))))
