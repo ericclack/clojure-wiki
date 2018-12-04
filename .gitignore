@@ -12,3 +12,4 @@ profiles.clj
 /log
 *~
 /out
+.DS_Store
