@@ -52,3 +52,10 @@ blockquote {
     padding-left: 1em;
     border-left: 4px solid #DDD;
 }
+
+.breadcrumb {
+    font-size: 80%;
+    padding: 0.5rem 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0rem;
+}

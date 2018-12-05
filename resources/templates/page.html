@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">
+  {% if breadcrumb|not-empty %}
   <p class="breadcrumb">
     {% for b in breadcrumb %}
-    <a href="{{b.id}}">{{b.id}}</a> . 
+    <a href="{{b.id}}">{{b.id}}</a>
+    {% if not forloop.last %},{% endif %} 
     {% endfor %}
+    &gt;
   </p>
+  {% endif %}
 
   <div class="col-sm-12">
       {{ doc.content|markdown }}
