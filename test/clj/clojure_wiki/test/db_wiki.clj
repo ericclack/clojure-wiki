@@ -6,15 +6,15 @@
             [clojure-wiki.test.utils :as utils]))
 
 (defn fixture [f]
-  (with-redefs [db/database-url (env :database-test-url)]
-    ;; Set up code
-    (utils/delete-if-exists "-test-123")
-    (utils/delete-if-exists "-test-124")
-    ;; The test
-    (f)
-    ;; Tear down code
-    ))
+  ;; Set up code
+  (utils/delete-if-exists! "-test-123")
+  (utils/delete-if-exists! "-test-124")
+  ;; The test
+  (f)
+  ;; Tear down code
+  )
 
+(use-fixtures :once utils/use-test-database)
 (use-fixtures :each fixture)
 
 ;; ----------------------------------------------------

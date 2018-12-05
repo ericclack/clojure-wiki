@@ -12,13 +12,14 @@
 
 (defn doc-prep-fixture [f]
   ;; Set up code
-  (utils/delete-if-exists db/nav-bar-id)
+  (utils/delete-if-exists! db/nav-bar-id)
   (db/create-wiki-page! db/nav-bar-id '(welcome))
   ;; The test
   (f)
   ;; Tear down code
 )
 
+(use-fixtures :once utils/use-test-database)
 (use-fixtures :each doc-prep-fixture)
 
 ;; ----------------------------------------------------
