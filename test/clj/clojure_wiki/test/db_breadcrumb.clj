@@ -1,21 +1,19 @@
 (ns clojure-wiki.test.db-wiki
   (:require [clojure.test :refer :all]
             [clojure.string :as s]
-            [environ.core :refer [env]]
             [clojure-wiki.models.db :as db]
             [clojure-wiki.test.utils :as utils]))
 
-(defn fixture [f]
-  (with-redefs [db/database-url (env :database-test-url)]
-    ;; Set up code
-    (utils/delete-if-exists! "page-one")
-    (utils/delete-if-exists! "page-two")
-    ;; The test
-    (f)
-    ;; Tear down code
-    ))
+(defn setup-docs [f]
+  (utils/delete-if-exists! "page-one")
+  (utils/delete-if-exists! "page-two")
+  ;; The test
+  (f)
+  ;; Tear down code
+  )
 
-(use-fixtures :each fixture)
+(use-fixtures :once utils/use-test-database)
+(use-fixtures :each setup-docs)
 
 ;; ----------------------------------------------------
 
