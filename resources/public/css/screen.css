@@ -59,3 +59,8 @@ blockquote {
     margin-top: 1.5rem;
     margin-bottom: 0.2rem;
 }
+
+.container .row hr {
+    border-top: 1px solid #ccc;
+    height: 1px;
+}
